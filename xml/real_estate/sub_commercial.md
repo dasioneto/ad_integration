@@ -1,5 +1,8 @@
+# Categoria `Comércio e indústria`
 
-#### Para que seu anúncio apareça na categoria `Comércio e indústria`, na OLX:
+Para que seu anúncio apareça na categoria `Comércio e indústria` na OLX Brasil, é necessário que a tag `<SubTipoImovel>` seja preenchida com algum dos valores da tabela abaixo.
+
+Além disso, o `<SubTipoImovel>` vai compor o título do anúncio que a OLX vai gerar automaticamente para seu anúncio, caso não seja enviado o `<TituloAnuncio>` no XML.
 
 | `<SubTipoImovel>` | Título do anúncio |
 |---------------------------------------|-------------------------|
@@ -34,3 +37,10 @@
 | `Prédio Inteiro` | Prédio Inteiro |
 | `Sala` | Sala Comercial |
 | `Sala Comercial` | Sala Comercial |
+
+## Parâmetros específicos da categoria
+
+
+
+
+## Exemplo de XML

@@ -1,8 +1,6 @@
 # Documentação para a Importação via XML para Imóveis na OLX
 
-Este manual tem como objetivo auxiliar a implantação de importação de anúncios de XML para o segmento de Imóveis.
-
-O formato de XML aceito pela OLX é específico para o portal OLX Brasil. Ele é baseado no formato ZAP, logo é possível se basear no XML para o ZAP para montar um XML para a OLX. Dito isso, é importante que você siga esse padrão descrito nessa documentação.
+O formato de XML aceito pela OLX é específico para o portal OLX Brasil. Ele é baseado no formato ZAP, o que te ajuda como um ponto de partida, mas possui particularidades - então usar o formato ZAP puro tende a não funcionar.
 
 Feita a avaliação de que os anúncios poderão ser adaptados ao formato XML e disponibilizados em uma URL, o cliente entrará em contato com a OLX informando que seus anúncios estão disponíveis para cadastro, solicitando a URL que contém os anúncios à empresa que as disponibiliza ou ao seu departamento de tecnologia. 
 
@@ -14,7 +12,7 @@ Para a integração via Arquivo, a OLX vai consultar periodicamente (mínimo de 
 
 ## Parâmetros
 
-Para a montagem do JSON, é necessário respeitar parâmetros genéricos e específicos de cada categoria e/ou subcategoria. Os parâmtros básicos são os seguintes:
+Para a montagem do XML, é necessário respeitar parâmetros genéricos e específicos de cada categoria e/ou subcategoria. Os parâmetros básicos são os seguintes:
 
 | Tag XML| Tamanho | Obrigatório? | Descrição|
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|--------------|---------------------------------------------------------------------------------------------|
@@ -28,14 +26,14 @@ Para a montagem do JSON, é necessário respeitar parâmetros genéricos e espec
 | `<ValorIPTU>` | 20 | Não | Valor mensal do IPTU do imóvel. Número inteiro, sem parte decimal, sem separador de milhares. |
 | `<AreaTotal>` | 15 | Não | Tamanho em metros quadrados do imóvel. Número inteiro, sem parte decimal. |
 | `<AreaUtil>` | 15 | Não | Tamanho em metros quadrados do imóvel. Número inteiro, sem parte decimal. |
-| `<Observacao>` | 6000 | Sim | Descrição do anúncio. Usar `\n` para quebra de linha. |
+| `<Observacao>` | 6000 | Sim | Descrição do anúncio. Use `\n` para quebra de linha. |
 | `<Foto>` `<NomeArquivo>` | 255 | Não | Nome da imagem no banco de dados do cliente. |
 | `<Foto>` `<URLArquivo>` | 255 | Não | Link em que a imagem está hospedada. |
 | `<Foto>` `<Principal>` | 1 | Não | Valor `1` caso a imagem seja a imagem principal do anúncio. |
 
 <sup>1</sup> Caso não seja enviado nenhum valor para `<TituloAnuncio>` (Título de Anúncio), será montado um título para o anúncio baseado no `<SubTipoImovel>` e outros atributos, como número de quartos, localização, etc. 
 
-Além desses parâmetros básicos, cada subcategoria sem parâmetros específicos. A descrição destes parâmetros e XMLs de exemplo encontram-se na página de cada subcategoria:
+As subcategorias dentro da categoria de Imóveis são `Apartamentos`, `Casas`, `Comércio e indústria` e `Terrenos, sítios e fazendas`. Elas possuem parâmetros específicos, cuja descrição está na página de cada subcategoria:
 
 - [Apartamentos](sub_apartments.md)
 - [Casas](sub_house.md)
@@ -53,4 +51,4 @@ Se um anúncio com um identificador já existente estiver no arquivo em uma nova
 
 Para que ocorra a deleção de um anúncio, basta que ele deixe de existir no arquivo e, no próximo processamento dessa carga vamos inferir que esse anúncio deve ser removido. 
 
-**Importante**: se um anúncio for removido e no próximo processamento ele voltar a aparecer no arquivo (ou, especificamente, se um determinado identificador deixar de existir no arquivo e, em outra importação, voltar a aparecer, vamos inferir (e, portanto, contabilizar) uma nova inserção. Por isso é crítico que um anúncio sempre esteja disponível com o mesmo identificador no arquivo e só deixe de aparecer quando de fato tivermos que removê-lo do seu inventário.
+ **Importante**: se um anúncio for removido e no próximo processamento ele voltar a aparecer no arquivo (ou, especificamente, se um determinado identificador deixar de existir no arquivo e, em outra importação, voltar a aparecer, **vamos inferir (e, portanto, contabilizar) uma nova inserção**. Por isso é crítico que um anúncio sempre esteja disponível com o mesmo identificador no arquivo e só deixe de aparecer quando de fato tivermos que removê-lo do seu inventário.
